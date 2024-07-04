@@ -1,0 +1,59 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="css\**" />
+    <Content Remove="css\**" />
+    <EmbeddedResource Remove="css\**" />
+    <None Remove="css\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Pages\CrearVentas.razor" />
+    <Content Remove="wwwroot\js\ConfDataTableProducto.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Pages\CrearVentas.razor" />
+    <_ContentIncludedByDefault Remove="Pages\FormularioIngresoProductos.razor" />
+    <_ContentIncludedByDefault Remove="wwwroot\js\ConfDataTableProducto.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Pages\Counter.razor" />
+    <None Include="Pages\Error.cshtml" />
+    <None Include="Pages\FetchData.razor" />
+    <None Include="Pages\Index.razor" />
+    <None Include="Pages\ProductosLista.razor" />
+    <None Include="Pages\_Host.cshtml" />
+    <None Include="Pages\_Layout.cshtml" />
+    <None Include="wwwroot\js\ConfDataTableProducto.js" />
+    <None Include="wwwroot\css\SylosVentas\VentasSyles.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="datatables.net" Version="2.0.8" />
+    <PackageReference Include="jQuery" Version="3.7.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.0">
+     
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Pages\CrearVentas.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Pages\FormularioIngresoProductos.razor" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,61 @@
+﻿@page "/productos"
+@using puntodeventa.Models;
+@using puntodeventa.Services;
+@inject ProductosService ProductosService
+@inject IJSRuntime jsRuntime
+<h3>Lista de productos</h3>
+
+@if(productos == null)
+{
+    <p>...Cargando</p>
+}
+else
+{
+    <div class="container">
+        <div class="row" >
+            <table id="dataTable" @ref="idtabla">
+                <thead>
+                    <tr>
+                        <th>cod. producto</th>
+                        <th>Nombre</th>
+                        <th>Cantidad</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var producto in productos)
+                    {
+                        <tr>
+                            <td>@producto.Pcodigo</td>
+                            <td>@producto.Nombre</td>
+                            <td>@producto.Cantidad</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+
+
+@code{
+    private ElementReference idtabla;
+    private List<Productos> productos;
+    protected override async Task OnInitializedAsync()
+    {
+        productos = await ProductosService.GetProductosAsync();
+    }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && productos != null)
+        {
+            await jsRuntime.InvokeVoidAsync("iniciarDataTblae", idtabla);
+
+        }
+    }
+    public void Dispose()
+    {
+        // Limpiar DataTable al salir de la página
+        jsRuntime.InvokeVoidAsync("cleanDataTable");
+    }
+}
+

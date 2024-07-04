@@ -1,0 +1,57 @@
+﻿@page "/ventas-diarias"
+@using puntodeventa.Models
+@using puntodeventa.Data
+@using puntodeventa.Services;
+@inject VentasService VentasService
+@if (ventasHoy == null)
+{
+    <p>Cargando...</p>
+}
+else if (!ventasHoy.Any())
+{
+    <p>No hay ventas registradas para el día de hoy.</p>
+}
+<h3>VentasDiarias</h3>
+<div class="container" style="border:solid;">
+   <div class="row">
+        <div class="col-sm-12 d-flex justify-content-center bg-danger text-white display-1">
+            12           
+        </div>
+        <div class="w-100"></div>
+        <div class="col-sm-12 ">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">First</th>
+                        <th scope="col">Last</th>
+                        <th scope="col">Handle</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var venta in ventasHoy)
+                    {
+                        <tr>
+                            <th scope="row">venta.Id</th>
+                            <td>venta.Preciov</td>
+                            <td>Otto</td>
+                            <td>mdo</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+   </div>
+</div>
+    @code {
+    private List<Ventas> ventasHoy;
+    protected override async Task OnInitializedAsync()
+    {
+        ventasHoy = await VentasService.GetVentasDiarias();
+    }
+
+}
+
+<style>
+  
+</style>

@@ -1,0 +1,97 @@
+﻿@page "/ventas"
+@using puntodeventa.Models;
+@using puntodeventa.Services;
+@inject ProductosService VentasService
+@inject ProductosService ProductosService
+@inject IJSRuntime jsRuntime
+<link rel="stylesheet" href="/css/SylosVentas/VentasSyles.css" />
+
+<h3>Crear una venta </h3>
+@if(productos == null)
+{
+    <p>...Cargando</p>
+}
+else
+{
+
+    <div class="container justify-content-center align-items-center">
+        <div class="row">
+                    <div class="col-sm-12 col-md-8 col-xl-8">
+                        <div class="card">
+                            <div class="card-body">
+                        <table id="ventaTable" @ref="idtabla">
+                            <thead>
+                                <tr>                                  
+                                    <th>cod. producto</th>
+                                    <th>Nombre</th>
+                                    <th>Precio</th>
+                                    <th>Cantidad</th>
+                                    <th>Id</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var producto in productos)
+                                {
+                                    <tr>
+                                        <td>@producto.Pcodigo</td>
+                                        <td>@producto.Nombre</td>
+                                        <td>@producto.Precio</td>
+                                        <td>@producto.Cantidad</td>
+                                        <td>@producto.Id</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                            </div>
+                        </div>
+                       
+                    </div>
+                    <div class="col-sm-12 col-md-8 col-xl-8">
+                        <div id="Total" class="total-display">Total: $0</div>
+                        <div id="TableVentas"></div>
+            </div>
+             <div class="col-sm-12 col-md-4 col-xl-4 mt-md-0 mt-4">
+            <form>
+                <div class="form-group">
+                    <select type="text" id="metodoPago" name="metodoPago" class="form-control" placeholder="Codigo" value="" onchange="eleccionVenta(value)" required>
+                        <option value=""></option>
+                          <option value="Efectivo">Efectivo</option>
+                        <option value="Tarjeta">Tarjeta</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="subtotal" name="subtotal" class="form-control" placeholder="Monto "   hidden="true" required>
+                </div>          
+                <div class="form-group">
+                        <input type="text" id="devolucion" name="devolucion" class="form-control" placeholder="Devolucion" readonly hidden="true" required>
+                </div>
+                <button type="button" id="guardarVenta" class="btn btn-primary">Guardar</button>
+            </form>
+        </div>
+        </div>
+    </div>
+}
+
+@code {
+    private ElementReference idtabla;
+    private List<Productos> productos;
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        productos = await ProductosService.GetProductosAsync();
+    }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && productos != null)
+        {
+            await jsRuntime.InvokeVoidAsync("CrearVenta", idtabla, ".dt-search", 0);
+
+        }
+    }
+    public void Dispose()
+    {
+        // Limpiar DataTable al salir de la página
+        jsRuntime.InvokeVoidAsync("cleanDataTable");
+    }
+}
