@@ -10,21 +10,21 @@ window.iniciarDataTblae = function (element) {
     $.fn.dataTable.ext.search = [];
 
 
-    // Inicializa el DataTable solo si el elemento dataTable está presente
+    // Inicializa el DataTable solo si el elemento dataTable estï¿½ presente
     if (dataTable.length > 0) {
         dataTableInstance = dataTable.DataTable({
             "lengthMenu": [[8, 25, 50, -1], [8, 25, 50, "Todos"]],
             "defaultContent": "<button>Editar</button>",
             "language": {
-                "lengthMenu": "Mostrar _MENU_ registros por página",
+                "lengthMenu": "Mostrar _MENU_ registros por pï¿½gina",
                 "zeroRecords": "No se encontraron registros",
                 "info": "",
                 "infoEmpty": "No hay registros disponibles",
                 "infoFiltered": "(filtrado de _MAX_ registros totales)",
-                "search": "Buscar Por código:",
+                "search": "Buscar Por cï¿½digo:",
                 "paginate": {
                     "first": "Primero",
-                    "last": "Último",
+                    "last": "ï¿½ltimo",
                     "next": "Siguiente",
                     "previous": "Anterior"
                 }
@@ -61,8 +61,8 @@ window.CrearVenta =  function (tableId, inputId, columnIndex) {
 
         $.fn.dataTable.ext.search.push(
             function (settings, data, dataIndex) {
-                var searchValue = $('input[id^="dt-search-"]').val() ? $('input[id^="dt-search-"]').val().trim() : ''; // Comprobación adicional
-                var codigo = data[columnIndex]; // Supongamos que la columna del código es la primera (índice 0)
+                var searchValue = $('input[id^="dt-search-"]').val() ? $('input[id^="dt-search-"]').val().trim() : ''; // Comprobaciï¿½n adicional
+                var codigo = data[columnIndex]; // Supongamos que la columna del cï¿½digo es la primera (ï¿½ndice 0)
                 return codigo === searchValue;
             }
         );
@@ -77,7 +77,7 @@ window.CrearVenta =  function (tableId, inputId, columnIndex) {
                 "info": "",
                 "infoEmpty": "",
                 "infoFiltered": "",
-                "search": "Buscar Por código:",
+                "search": "Buscar Por cï¿½digo:",
                 "paginate": {
                     "first": "",
                     "last": "",
@@ -94,10 +94,9 @@ window.CrearVenta =  function (tableId, inputId, columnIndex) {
         $('input[id^="dt-search-"]').on('input', function () {
             if ($.fn.DataTable.isDataTable('#ventaTable')) {
                 var texto = $(this).val().trim();
-                console.log('Texto ingresado:', texto);
                 table.search(texto).draw();
             } else {
-                console.log('Error: DataTables no está inicializado correctamente.');
+                console.log('Error: DataTables no estï¿½ inicializado correctamente.');
             }
 
             const inputProducto = $('input[id^="dt-search-"]');
@@ -125,10 +124,9 @@ window.CrearVenta =  function (tableId, inputId, columnIndex) {
                             const precio = datosFila[2]; // Tercera columna
                             const cantidad = datosFila[3]; // Cuarta columna
                             const id = datosFila[4]; // Quinta columna
-                            console.log('Cantidad encontrada:', pcodigo, nombre, precio, cantidad, id);
 
                             if (cantidad === '0') {
-                                console.log("La cantidad está en 0, no se puede agregar este producto");
+                                console.log("La cantidad estï¿½ en 0, no se puede agregar este producto");
                                 return;
                             }
                             datosIngresados.push({ Pcodigo: pcodigo, Nombre: nombre, Precio: precio, Cantidad: cantidad, Id: id });
@@ -141,12 +139,11 @@ window.CrearVenta =  function (tableId, inputId, columnIndex) {
                      
                 });
             } else {
-                console.log('Error: No se encontró el input de búsqueda.');
+                console.log('Error: No se encontrï¿½ el input de bï¿½squeda.');
             }
         });
 
         function agregar(pcodigo, nombre, precio, cantidad, id) {
-            console.log("Se agrega el producto al carrito");
             const carritoElement = $('#TableVentas');
             const totalElement = $('#Total');
 
@@ -156,7 +153,7 @@ window.CrearVenta =  function (tableId, inputId, columnIndex) {
                 const tabla = $('<table>').addClass('table table-striped');
                 const thead = $('<thead>');
                 const headRow = $('<tr>');
-                const headers = ['Código', 'Nombre', 'Precio', 'Cantidad', 'Acción'];
+                const headers = ['Cï¿½digo', 'Nombre', 'Precio', 'Cantidad', 'Acciï¿½n'];
                 headers.forEach(headerText => {
                     const th = $('<th>').text(headerText);
                     headRow.append(th);
@@ -187,7 +184,6 @@ window.CrearVenta =  function (tableId, inputId, columnIndex) {
                 const cantidad = parseInt(filaActual.find('td:nth-child(4)').text());
                 const indiceFila = obtenerIndiceFila(filaActual);
 
-                console.log('La fila actual está en la posición:', indiceFila);
                 datosIngresados.splice(indiceFila, 1);
                 let totalActual = parseInt(totalElement.text().replace(/\$/g, '').replace(/^Total:\s*/, ''));
                 totalActual -= precio;
@@ -225,7 +221,6 @@ window.CrearVenta =  function (tableId, inputId, columnIndex) {
                 totalElement.text('Total: $' + total);
             }
 
-            console.log('Productos en el carrito:', datosIngresados);
         }
     }
 
@@ -236,67 +231,87 @@ window.CrearVenta =  function (tableId, inputId, columnIndex) {
         let obtenercantidad = 0;
         if (datosIngresados.length !== 0) {
             datosIngresados.forEach((res) => {
-                console.log('res del button de guardado', res)
                 const cantidad = res.Id;
                 countById[cantidad] = (countById[cantidad] || 0) + 1;
-                obtenercantidad = res.cantidad
+                obtenercantidad = res.Cantidad
+
             });
             datosIngresados.forEach((res, index) => {
-                const repeticiones = countById[res.id]
-                datosIngresados[index].cantidad == repeticiones;
+                const repeticiones = countById[res.Id]
+                datosIngresados[index].Cantidad -= repeticiones;
             })
-            const datosActualizados = {
-                datosIngresados: datosIngresados
-            }
-            $.ajax({
-                url: "",
-                method: "PUT",
-                type: "PUT",
-                headers: {
-
-                },
-                data: JSON.stringify(datosActualizados),
-                contentType: "application/json",
-                dataType: "json",
-                success: function (response) {
-                    if (response.success == 'informacion guardada') {
-                        location.reload();
-                    } else { console.log('error ', response.error) }
-                },
-                error: function (xhr, errmsg, err) {
-                    console.log('status del guardado', xhr.status + '' + xhr.respnseText)
-                }
-            });
-            const productoVendido = "";
-            datosIngresados.forEach(producto => {
-                const id = producto.id
-                const precio = parseInt(producto.precio);
-                sumarPrecioById[id] = (sumarPrecioById[id] || 0) + precio;
-                productoVendido = producto.Nombre
+            datosIngresados.forEach((res) => {
+                $.ajax({
+                    url: "https://localhost:7202/api/productos/updateproductos",
+                    method: "PUT",
+                    data: JSON.stringify(res),
+                    contentType: "application/json",
+                    success: function (response) {
+                        console.log('response update', response)
+                        if (response.success ) {
+                        } else { console.log('error ', response.error) }
+                    },
+                    error: function (xhr, errmsg, err) {
+                        console.log('status del up producto', errmsg)
+                        console.log('xhr producto error', xhr)
+                        console.log('error del producto', err)
+                    }
                 });
-        }
-        object.key(countById).forEach(async id => {
-            const fechaActual = new Date();
-            const año = fechaActual.getFullYear();
-            const mes = fechaActual.getMonth() + 1;
-            const dia = fechaActual.getDay();
-            const hoy + '/' + mes + '/' + año;
-            let cantidad = countById[id];
-            let preciov = sumaPreciosById[id];
-            let fechav = hoy.toString();
-            let metov = document.getElementById('metodoPago').value;
-            let productoin = 0;
-            const productosJSON = [];
-            const Productos = {
-                Preciov: preciov,
-                Cantidadv: cantidad,
-                Fechav: fechav,
-                Metodov: metov,
-                Productoin: productoVendido,
-                Productoid:id
+            });
+            datosIngresados.forEach(producto => {
+                const id = producto.Id
+                const precio = parseInt(producto.Precio);
+                sumaPreciosById[id] = (sumaPreciosById[id] || 0) + precio;
+           
+            Object.keys(countById).forEach(id => {
                 
-            }
-        })
+                const fechaActual = new Date();
+                const aÃ±o = fechaActual.getFullYear();
+                const mes = fechaActual.getMonth() + 1;
+                const dia = fechaActual.getDate();
+                const hoy = dia + '/' + mes + '/' + aÃ±o;
+                console.log('dia de hoy', hoy)
+                let Cantidad = countById[id];
+                let Preciov = sumaPreciosById[id];
+                let Fechav = hoy.toString();
+                let Metodov = document.getElementById('metodoPago').value;
+                let productoin = 0;
+                const productosJson = [];
+
+                let ventas = {
+                    Preciov: Preciov,
+                    Cantidadv:Cantidad,
+                    Fechav: Fechav,
+                    Metodov: Metodov,
+                    Productoin: 0,
+                    Productoid: parseInt(id),
+                }
+                 $.ajax({
+                     method: 'POST',
+                     url: "https://localhost:7202/api/ventas/createventa",
+                    contentType: 'application/json',
+                    data: JSON.stringify(ventas),
+                    headers: {},
+                    success: function (response) {
+                        console.log('respuesta', response)
+                        if (response.success == "Venta guardada") {
+                            location.reload();
+
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.log('se producjo un error', error)
+                        console.log('con el status', status)
+                        console.log('el xhr', xhr)
+                    }
+
+                })
+            })
+            });
+
+
+
+        }
         })
 }
 

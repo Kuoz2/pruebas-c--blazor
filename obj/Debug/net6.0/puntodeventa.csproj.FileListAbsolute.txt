@@ -59,3 +59,4 @@ C:\Users\kuoz2\Desktop\Nueva carpeta (4)\projectoc#\puntodeventa\puntodeventa\ob
 C:\Users\kuoz2\Desktop\Nueva carpeta (4)\projectoc#\puntodeventa\puntodeventa\obj\Debug\net6.0\puntodeventa.genruntimeconfig.cache
 C:\Users\kuoz2\Desktop\Nueva carpeta (4)\projectoc#\puntodeventa\puntodeventa\obj\Debug\net6.0\ref\puntodeventa.dll
 C:\Users\kuoz2\Desktop\Nueva carpeta (4)\projectoc#\puntodeventa\puntodeventa\obj\Debug\net6.0\puntodev.E1B226C9.Up2Date
+C:\Users\kuoz2\Desktop\Nueva carpeta (4)\projectoc#\puntodeventa\puntodeventa\obj\Debug\net6.0\puntodeventa.sourcelink.json

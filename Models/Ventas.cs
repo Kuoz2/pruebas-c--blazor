@@ -1,20 +1,32 @@
-﻿namespace puntodeventa.Models
+﻿
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
+
+namespace puntodeventa.Models
 {
     public class Ventas
     {
         public int id { get; set; }
-        public int preciov { get; set; }
-#pragma warning disable CS8618 // Un campo que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de declararlo como que admite un valor NULL.
+        [JsonPropertyName("preciov")]
+        [Column("preciov")]
+        public int Preciov { get; set; }
+        [JsonPropertyName("cantidadv")]
+        [Column("cantidadv")]
+        public int Cantidadv { get; set; }
+        [JsonPropertyName("fechav")]
+        [Column("fechav")]
         public string Fechav { get; set; }
-#pragma warning restore CS8618 // Un campo que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de declararlo como que admite un valor NULL.
-#pragma warning disable CS8618 // Un campo que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de declararlo como que admite un valor NULL.
+        [JsonPropertyName("metodov")]
+        [Column("metodov")]
         public string Metodov { get; set; }
-#pragma warning restore CS8618 // Un campo que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de declararlo como que admite un valor NULL.
+        [JsonPropertyName("productoin")]
+        [Column("productoin")]
         public int Productoin { get; set; }
+        [JsonPropertyName("productoid")]
+        [Column("productoid")]
         public int Productoid { get; set; }
-#pragma warning disable CS8618 // Un campo que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de declararlo como que admite un valor NULL.
-        public Productos Productos {  get; set; }
-#pragma warning restore CS8618 // Un campo que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de declararlo como que admite un valor NULL.
-        
+        [JsonIgnore] // Ignorar al serializar
+        public Productos? Productos {  get; set; }        
     }
 }

@@ -1,7 +1,7 @@
 ﻿<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="">puntodeventa</a>
-        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+        <button type="button" title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
     </div>
@@ -13,42 +13,32 @@
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
                 <span class="oi oi-home" aria-hidden="true"></span> Home
             </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="oi oi-plus" aria-hidden="true"></span> Counter
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="fetchdata">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
-            </NavLink>
-        </div>     
+        </div>          
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="productos">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Lista producto
+                <span class="oi oi-book" aria-hidden="true"></span> Lista producto
             </NavLink>
         </div>
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="ventas">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Retirar Producto
+                <span class="oi oi-dollar" aria-hidden="true"></span> Retirar Producto
             </NavLink>
         </div>
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="ingreso-producto">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Ingreso de Productos
+                <span class="oi oi-document" aria-hidden="true"></span> Ingreso de Productos
             </NavLink>
         </div>
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="ventas-diarias">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Ventas Diarias
+                <span class="oi oi-bar-chart" aria-hidden="true"></span> Ventas Diarias
             </NavLink>
         </div>
     </nav>
 </div>
 
 @code {
-    private bool collapseNavMenu = true;
+    private bool collapseNavMenu = false;
 
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
@@ -58,13 +48,3 @@
     }
 
 }
-<script>
-    document.addEventListener('DOMContentLoaded', function(){
-        console.log("hola")
-        if ($.fn.DataTable.isDataTable('#dataTable')) {
-            $('#dataTable').DataTable().clear();  // Limpia la tabla
-            $('#dataTable').DataTable().destroy();  // Destruye la instancia del DataTable
-            $('#dataTable').empty();  // Elimina el contenido de la tabla para evitar elementos residuales
-        }
-    })
-</script>

@@ -1,9 +1,32 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using puntodeventa.Data;
 using puntodeventa.Models;
+using puntodeventa.Services;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+[Route("api/productos")]
+[ApiController]
+public class ProductosController : ControllerBase
+{
+    private readonly ProductosService _productsService;
+    public ProductosController(ProductosService productsService)
+    {
+        _productsService = productsService;
+    }
+    [HttpPut("updateproductos")]
+    public async Task<IActionResult> UpdateProductos( Productos productos)
+    {
+        if (productos == null)
+        {
+            return BadRequest("No se resivio los datos correctamente");
+        }
+
+        await _productsService.UpdateProductosAsync(productos);
+        return Ok(new { success = "informacion guardada" });
+    }
+}
 namespace puntodeventa.Services
 {
     public class ProductosService

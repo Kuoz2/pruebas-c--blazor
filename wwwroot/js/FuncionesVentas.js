@@ -4,7 +4,7 @@ var TotalObtenido = 0;
 var descontar = 0
 
 window.CrearVenta = function (element) {
-    const datTable == document.getelement("ventaTable")
+    const datTable = document.getelement("ventaTable")
     if (datTable == "ventaTable") {
         $.fn.dataTable.ext.search.push(
             function (settings, data, dataIndex) {

@@ -3,13 +3,14 @@
 @using puntodeventa.Data
 @using puntodeventa.Services
 @using System.ComponentModel.DataAnnotations
+@using Microsoft.AspNetCore.Components.Forms
+@using System
 @inject ProductosService productosService
 @inject ApplicationDbContext context
 <h3>Ingresar nuevo producto</h3>
-
 <EditForm Model="nuevoProducto" OnValidSubmit="AgregarProductos">
     <DataAnnotationsValidator />
-    <ValidationSummary />
+    <Microsoft.AspNetCore.Components.Forms.ValidationSummary />
     <div class="form-container">
         <div class="form-group">
             <label for="pcodigo">Código del producto:</label>
@@ -21,16 +22,17 @@
         </div>
         <div class="form-group">
             <label for="precio">Precio:</label>
-            <InputNumber id="precio" class="form-control" @bind-Value="nuevoProducto.Precio"></InputNumber>
-        </div>
-        <div class="form-group">
-            <label for="fechavenci">Fecha de vencimiento:</label>
-            <InputDate id="fechavenci" class="form-control" @bind-Value="nuevoProducto.Fechavenci"></InputDate>
+            <InputNumber id="precio" class="form-control" @bind-Value="nuevoProducto.Precio" TValue="int"></InputNumber>
         </div>
         <div class="form-group">
             <label for="cantidad">Cantidad a ingresar:</label>
-            <InputNumber id="cantidad" class="form-control" @bind-Value="nuevoProducto.Cantidad"></InputNumber>
+            <InputNumber id="cantidad" class="form-control" @bind-Value="nuevoProducto.Cantidad" TValue="int"></InputNumber>
         </div>
+        <div class="form-group">
+            <label for="fechavenci">Fecha de vencimiento:</label>
+            <InputDate id="fechavenci" class="form-control" @bind-Value="nuevoProducto.Fechavenci" ></InputDate>
+        </div>
+      
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Agregar producto</button>
         </div>
